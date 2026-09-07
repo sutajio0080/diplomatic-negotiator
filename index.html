@@ -1,0 +1,425 @@
+HTML
+<!DOCTYPE html>
+<html lang="en" class="notranslate" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE NEGOTIATOR - Diplomatic Business Communicator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px; 
+            margin: 20px auto; 
+            padding: 15px; 
+            line-height: 1.6; 
+            background-color: #0b0f19; 
+            color: #f1f5f9; 
+        }
+
+        .container {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 1px solid #334155;
+            border-top: 5px solid #38bdf8;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .lang-switch-btn {
+            background-color: #0f172a;
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .lang-switch-btn:hover {
+            background-color: #38bdf8;
+            color: #0f172a;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            color: #38bdf8;
+            margin: 0;
+            font-size: 26px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        p.subtitle {
+            color: #94a3b8;
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .section-title {
+            font-weight: 600;
+            color: #cbd5e1;
+            font-size: 13px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-presets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .preset-btn {
+            background-color: #0f172a;
+            border: 1px solid #475569;
+            color: #94a3b8;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .preset-btn:hover {
+            border-color: #38bdf8;
+            color: #f8fafc;
+            background-color: #1e293b;
+        }
+
+        textarea { 
+            width: 100%; 
+            height: 110px; 
+            margin-bottom: 15px; 
+            padding: 12px; 
+            font-size: 15px; 
+            border: 1px solid #475569; 
+            border-radius: 10px; 
+            background-color: #0f172a;
+            color: #f8fafc;
+            outline: none;
+            resize: vertical;
+            transition: border-color 0.2s;
+        }
+
+        textarea:focus {
+            border-color: #38bdf8;
+        }
+
+        .btn-negotiate { 
+            background: linear-gradient(135deg, #0284c7, #0369a1); 
+            color: #ffffff; 
+            border: none; 
+            padding: 15px; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            width: 100%; 
+            font-weight: 700; 
+            letter-spacing: 1px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.4);
+            text-transform: uppercase;
+        }
+
+        .btn-negotiate:hover { 
+            background: linear-gradient(135deg, #0369a1, #075985); 
+        }
+
+        .result-container {
+            margin-top: 25px;
+        }
+
+        .result-box { 
+            background: #0f172a; 
+            padding: 16px; 
+            border-radius: 10px; 
+            min-height: 120px; 
+            white-space: pre-wrap; 
+            border: 1px dashed #475569; 
+            font-size: 14px; 
+            color: #e2e8f0;
+            line-height: 1.6;
+            word-break: break-word;
+        }
+
+        .btn-copy {
+            margin-top: 12px;
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+
+        .btn-copy:hover {
+            background-color: #059669;
+        }
+
+        .toast {
+            text-align: center;
+            color: #34d399;
+            font-size: 13px;
+            margin-top: 8px;
+            display: none;
+            font-weight: bold;
+        }
+
+        .footer-note {
+            font-size: 11px;
+            color: #64748b;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .disclaimer {
+            font-size: 10px;
+            color: #475569;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="top-bar">
+        <button class="lang-switch-btn" onclick="toggleLanguage()" id="langSwitchBtn">🌐 日本語に切り替え</button>
+    </div>
+
+    <div class="header">
+        <h1 id="appTitle">THE NEGOTIATOR</h1>
+        <p class="subtitle" id="appSubtitle">Diplomatic Communicator: Turn direct claims into professional, polite, and persuasive terms.</p>
+    </div>
+
+    <div class="section-title">
+        <span id="quickScenariosTitle">Quick Scenarios (Quick Select)</span>
+    </div>
+    <div class="category-presets">
+        <button class="preset-btn" onclick="applyPreset('price')" id="presetPrice">💰 Price Negotiation<br><small>Budget / Discount</small></button>
+        <button class="preset-btn" onclick="applyPreset('deadline')" id="presetDeadline">⏳ Deadline / Schedule<br><small>Reject tight timeframes</small></button>
+        <button class="preset-btn" onclick="applyPreset('decline')" id="presetDecline">❌ Polite Refusal<br><small>Decline requests gracefully</small></button>
+        <button class="preset-btn" onclick="applyPreset('remind')" id="presetRemind">📩 Follow-up / Reminder<br><small>Check status politely</small></button>
+    </div>
+
+    <div class="section-title">
+        <label for="inputText" id="inputLabel">Direct Intent / Raw Request (English or Japanese)</label>
+        <span id="charCount" style="font-size: 12px; color: #64748b;">0 chars</span>
+    </div>
+    <textarea id="inputText" placeholder="e.g., Too expensive / Tight deadline / I can't do this / 安くして / 納期短くて無理" oninput="updateCharCount()"></textarea>
+
+    <button class="btn-negotiate" onclick="negotiateText()" id="btnNegotiate">Transform into Diplomatic Text</button>
+
+    <div class="result-container">
+        <div class="section-title">
+            <span id="outputLabel">Diplomatic Output (Professional Response)</span>
+        </div>
+        <div id="outputText" class="result-box">Your refined, diplomatic response will appear here.</div>
+        <button class="btn-copy" onclick="copyResult()" id="btnCopy">📋 Copy to Clipboard</button>
+        <div id="toast" class="toast">Copied to clipboard successfully!</div>
+    </div>
+
+    <div class="footer-note" id="footerNote">
+        Supports both English & Japanese input/output. Designed for international deployment.
+    </div>
+
+    <div class="disclaimer" id="disclaimerText">
+        Disclaimer: This tool is for drafting reference only. Users are responsible for reviewing and finalizing their own communications.
+    </div>
+</div>
+
+<script>
+    let currentLang = 'en';
+
+    const uiTexts = {
+        en: {
+            switchBtn: "🌐 日本語に切り替え",
+            title: "THE NEGOTIATOR",
+            subtitle: "Diplomatic Communicator: Turn direct claims into professional, polite, and persuasive terms.",
+            quickTitle: "Quick Scenarios (Quick Select)",
+            presetPrice: "💰 Price Negotiation<br><small>Budget / Discount</small>",
+            presetDeadline: "⏳ Deadline / Schedule<br><small>Reject tight timeframes</small>",
+            presetDecline: "❌ Polite Refusal<br><small>Decline requests gracefully</small>",
+            presetRemind: "📩 Follow-up / Reminder<br><small>Check status politely</small>",
+            inputLabel: "Direct Intent / Raw Request (English or Japanese)",
+            placeholder: "e.g., Too expensive / Tight deadline / I can't do this / 安くして / 納期短くて無理",
+            btnNegotiate: "Transform into Diplomatic Text",
+            outputLabel: "Diplomatic Output (Professional Response)",
+            defaultOutput: "Your refined, diplomatic response will appear here.",
+            btnCopy: "📋 Copy to Clipboard",
+            toast: "Copied to clipboard successfully!",
+            footerNote: "Supports both English & Japanese input/output. Designed for international deployment.",
+            disclaimer: "Disclaimer: This tool is for drafting reference only. Users are responsible for reviewing and finalizing their own communications.",
+            alertEmpty: "Please enter your direct intent or raw text.",
+            alertNoCopy: "No text available to copy."
+        },
+        ja: {
+            switchBtn: "🌐 Switch to English",
+            title: "THE NEGOTIATOR",
+            subtitle: "【交渉人】ストレートな要求を、角を立てずに主張を通すプロの文章へ変換",
+            quickTitle: "クイックシナリオ（定番フレーズ選択）",
+            presetPrice: "💰 価格・予算交渉<br><small>値引き・予算調整</small>",
+            presetDeadline: "⏳ 納期・スケジュール調整<br><small>無茶なスケジュールの拒否</small>",
+            presetDecline: "❌ 角を立てないお断り<br><small>依頼を丁寧に辞退</small>",
+            presetRemind: "📩 返信の催促・確認<br><small>進捗を失礼なく確認</small>",
+            inputLabel: "本音・ストレートな要求（英語・日本語どちらもOK）",
+            placeholder: "（例）安くしてほしい / 明日までとか無理 / 忙しいからやりたくない / Too expensive",
+            btnNegotiate: "交渉用テキストを生成する",
+            outputLabel: "変換結果（プロフェッショナルな回答文）",
+            defaultOutput: "ここに交渉用に最適化された文章が表示されます。",
+            btnCopy: "📋 クリップボードにコピーする",
+            toast: "クリップボードにコピーしました！",
+            footerNote: "日本語・英語の双方向入力に対応。国内外で利用可能なグローバル仕様です。",
+            disclaimer: "免責事項：本ツールは下書き作成の参考にのみご使用ください。実際の連絡・送信内容の最終確認および責任は使用者本人に帰属します。",
+            alertEmpty: "本音や要求テキストを入力してください。",
+            alertNoCopy: "コピーする文章がありません。"
+        }
+    };
+
+    function toggleLanguage() {
+        currentLang = currentLang === 'en' ? 'ja' : 'en';
+        const t = uiTexts[currentLang];
+
+        document.getElementById('langSwitchBtn').innerText = t.switchBtn;
+        document.getElementById('appTitle').innerText = t.title;
+        document.getElementById('appSubtitle').innerText = t.subtitle;
+        document.getElementById('quickScenariosTitle').innerText = t.quickTitle;
+        document.getElementById('presetPrice').innerHTML = t.presetPrice;
+        document.getElementById('presetDeadline').innerHTML = t.presetDeadline;
+        document.getElementById('presetDecline').innerHTML = t.presetDecline;
+        document.getElementById('presetRemind').innerHTML = t.presetRemind;
+        document.getElementById('inputLabel').innerText = t.inputLabel;
+        document.getElementById('inputText').placeholder = t.placeholder;
+        document.getElementById('btnNegotiate').innerText = t.btnNegotiate;
+        document.getElementById('outputLabel').innerText = t.outputLabel;
+        
+        const outputBox = document.getElementById('outputText');
+        if (outputBox.innerText === uiTexts.en.defaultOutput || outputBox.innerText === uiTexts.ja.defaultOutput) {
+            outputBox.innerText = t.defaultOutput;
+        }
+
+        document.getElementById('btnCopy').innerText = t.btnCopy;
+        document.getElementById('toast').innerText = t.toast;
+        document.getElementById('footerNote').innerText = t.footerNote;
+        document.getElementById('disclaimerText').innerText = t.disclaimer;
+    }
+
+    function updateCharCount() {
+        const text = document.getElementById('inputText').value;
+        const unit = currentLang === 'en' ? ' chars' : ' 文字';
+        document.getElementById('charCount').innerText = text.length + unit;
+    }
+
+    function applyPreset(type) {
+        const input = document.getElementById('inputText');
+        if (currentLang === 'en') {
+            if (type === 'price') input.value = "It's too expensive. Can you give me a discount?";
+            else if (type === 'deadline') input.value = "Tomorrow is impossible. I need more time.";
+            else if (type === 'decline') input.value = "I don't want to do this task. I'm busy.";
+            else if (type === 'remind') input.value = "Why haven't you replied yet? Please hurry up.";
+        } else {
+            if (type === 'price') input.value = "安くしてほしいです。高すぎるので。";
+            else if (type === 'deadline') input.value = "明日までとか納期短くて無理です。";
+            else if (type === 'decline') input.value = "忙しいのでやりたくないです。";
+            else if (type === 'remind') input.value = "返事まだ？早くして。";
+        }
+        updateCharCount();
+    }
+
+    function negotiateText() {
+        let text = document.getElementById('inputText').value;
+        if (!text.trim()) {
+            alert(uiTexts[currentLang].alertEmpty);
+            return;
+        }
+
+        let result = text
+            // --- English Full Phrase Transformations ---
+            .replace(/I don't want to do this task\. I'm busy\./gi, "we are currently prioritizing existing commitments at this stage")
+            .replace(/It's too expensive\. Can you give me a discount\?/gi, "the current quote is slightly above our budget allocation. We would appreciate it if we could explore any flexibility in pricing")
+            .replace(/Tomorrow is impossible\. I need more time\./gi, "completing this by tomorrow would be challenging. To ensure quality, we would appreciate a brief extension")
+            .replace(/Why haven't you replied yet\? Please hurry up\./gi, "we are following up on our previous inquiry and would welcome an update at your earliest convenience")
+
+            // --- English Partial Word Backup Rules ---
+            .replace(/too expensive/gi, "above our current budget")
+            .replace(/give me a discount/gi, "explore price flexibility")
+            .replace(/impossible/gi, "challenging within the proposed timeline")
+            .replace(/i am busy/gi, "fully committed with existing tasks")
+
+            // --- Japanese Rules ---
+            .replace(/安くしてほしいです。高すぎるので。/g, "当方の想定予算を超過しておりますため、ご予算につきまして少々お値引きをご検討いただくことは可能でしょうか")
+            .replace(/明日までとか納期短くて無理です。/g, "品質確保の観点から、スケジュールに少々余裕を頂戴したく存じます")
+            .replace(/忙しいのでやりたくないです。/g, "現在抱えております業務の進行上、恐縮ながらご協力が難しい状況でございます")
+            .replace(/返事まだ？早くして。/g, "お忙しいところ恐れ入りますが、先日の件につきまして進捗状況をお聞かせいただけますと幸いです")
+            .replace(/安くして/g, "ご予算につきまして少々お値引きをご検討いただくことは可能でしょうか")
+            .replace(/高すぎる/g, "当方の想定予算を超過しておりますため調整可能かご相談させてください")
+            .replace(/納期短くて無理/g, "品質確保の観点からスケジュールに少々余裕を頂戴したく存じます")
+            .replace(/無理/g, "あいにく調整が困難な状況でございます");
+
+        // Format into Email Template
+        let formattedResult = "";
+        if (/[a-zA-Z]/.test(text)) {
+            formattedResult = "Dear Partner,\n\n" + 
+                              "Thank you for reaching out.\n\n" + 
+                              "Regarding your request: " + result + ".\n\n" + 
+                              "We appreciate your understanding and look forward to working together smoothly.\n\n" + 
+                              "Best regards,";
+        } else {
+            formattedResult = "お世話になっております。\n\n" + 
+                              "ご連絡いただきありがとうございます。\n\n" + 
+                              "本件につきまして、" + result + "。\n\n" + 
+                              "ご不便をおかけいたしますが、何卒ご理解とご容赦のほどお願い申し上げます。\n\n" + 
+                              "引き続きよろしくお願いいたします。";
+        }
+
+        document.getElementById('outputText').innerText = formattedResult;
+    }
+
+    function copyResult() {
+        const outputText = document.getElementById('outputText').innerText;
+        const defaultTextEn = uiTexts.en.defaultOutput;
+        const defaultTextJa = uiTexts.ja.defaultOutput;
+
+        if (outputText === defaultTextEn || outputText === defaultTextJa || !outputText) {
+            alert(uiTexts[currentLang].alertNoCopy);
+            return;
+        }
+
+        navigator.clipboard.writeText(outputText).then(() => {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 2000);
+        }).catch(err => {
+            alert('Failed to copy text.');
+        });
+    }
+</script>
+
+</body>
+</html>
